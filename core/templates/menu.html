@@ -1,0 +1,214 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+  <title>Menu</title>
+{% endblock %}
+
+{% block content %}
+
+{% for product in products %}
+  <div class="modal fade" id="customizeModal{{ product.pk }}" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header modal-bg" style="background-image: url({% static 'img/11.jpg' %})">
+          <span class="my-data" data-n="{{ product.name }}" data-p = "{{ product.pk }}" data-i = "{{ product.image }}"></span>
+          <button type="button" class="close-btn" data-dismiss="modal" aria-label="Close">
+            <span></span>
+            <span></span>
+          </button>
+
+        </div>
+        <div class="modal-body">
+
+          <div class="customize-meta">
+            <h4 class="customize-title">{{ product.name }} <span class="custom-primary">{{ product.price }} $</span> </h4>
+            <p>
+              {{ product.description }}
+            </p>
+          </div>
+
+          <div class="customize-variations">
+
+            <div class="customize-size-wrapper">
+              <h5>Size: </h5>
+              {% for i in product.size_set.all %}
+              <div class="customize-size sizer {% if forloop.counter == 1 %}active{%endif%}" data-s="{{ i.pk }}" data-price = "{{ i.price }}" data-size = "{{ i.name }}">
+                {{ i.name }}
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="customize-controls">
+            <div class="qty">
+              <span class="qty-subtract"><i class="fas fa-minus"></i></span>
+              <input disabled="true" type="text" name="qty" value="1">
+              <span class="qty-add"><i class="fas fa-plus"></i></span>
+            </div>
+            <div class="customize-total" data-price="{{ product.price }}">
+              <h5>Total Price: <span class="final-price custom-primary">{{ product.price }} <span>$</span> </span> </h5>
+            </div>
+          </div>
+
+          <button type="button" class="btn-custom btn-block">Add To Cart</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+
+
+  <!-- Subheader Start -->
+  <div class="subheader dark-overlay dark-overlay-2" style="background-image: url({% static 'img/subheader.jpg' %})">
+    <div class="container">
+      <div class="subheader-inner">
+        <h1>Menu</h1>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'core:home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Menu</a></li>
+          </ol>
+        </nav>
+      </div>
+
+    </div>
+  </div>
+  <!-- Subheader End -->
+
+  <!-- Menu Categories Start -->
+  <div class="ct-menu-categories menu-filter">
+    <div class="container">
+      <div class="menu-category-slider">
+          <a href="#" data-filter="*" class="ct-menu-category-item active" data-slick-index="0" aria-hidden="false" tabindex="0" style="width: 113px;">
+          <div class="menu-category-thumb">
+            <img src="{% static 'img/menu/6.jpg' %}" alt="category">
+          </div>
+          <div class="menu-category-desc">
+            <h6>All</h6>
+          </div>
+        </a>
+
+        <a href="#" data-filter=".Pizzas" class="ct-menu-category-item" data-slick-index="2" aria-hidden="false" tabindex="0" style="width: 113px;">
+          <div class="menu-category-thumb">
+            <img src="{% static 'img/menu/2.jpg' %}" alt="category">
+          </div>
+          <div class="menu-category-desc">
+            <h6>Pizzas</h6>
+          </div>
+        </a>
+
+        <a href="#" data-filter=".Beverages" class="ct-menu-category-item" data-slick-index="6" aria-hidden="false" tabindex="0" style="width: 113px;">
+          <div class="menu-category-thumb">
+            <img src="{% static 'img/menu/5.jpg' %}" alt="category">
+          </div>
+          <div class="menu-category-desc">
+            <h6>Beverages</h6>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </div>
+  <!-- Menu Categories End -->
+
+  <!-- Menu Wrapper Start -->
+  <div class="section section-padding">
+    <div class="container">
+
+      <div class="menu-container row" style="position: relative; height: 1897.2px;">
+
+        {% for product in products %}
+
+
+        <!-- Product Start -->
+        <div class="col-lg-4 col-md-6 {{ product.catagory }}" style="position: absolute; left: 0px; top: 0px;">
+          <div class="product">
+            <a class="product-thumb" href="{% url 'core:product' product.pk %}"> <img src="{{ product.sm_image }}" alt="menu item"> </a>
+            <div class="product-body">
+              <div class="product-desc">
+                <h4> <a href="{% url 'core:product' product.pk %}">{{ product.name }}</a> </h4>
+                <p>{{ product.description }}</p>
+                <p class="product-price">{{ product.price }}$</p>
+                <div class="favorite">
+                  <i class="far fa-heart"></i>
+                </div>
+              </div>
+              <div class="product-controls">
+                <a href="#" data-p="{{ product.pk }}" class="order-item btn-custom btn-sm shadow-none">Add To Cart<i class="fas fa-shopping-cart"></i> </a>
+                <a href="#" class="btn-custom secondary btn-sm shadow-none" data-toggle="modal" data-target="#customizeModal{{ product.pk }}"> See Options <i class="fas fa-plus"></i> </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Product End -->
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+  <!-- Menu Wrapper End -->
+
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+  document.querySelectorAll(".sizer").forEach((item)=>{
+    item.addEventListener("click",(event)=>{
+      item.parentNode.parentNode.parentNode.querySelector('.active').classList.remove("active")
+      item.classList.add("active")
+      let newprice = parseFloat(item.getAttribute("data-price"))
+      let quantity = parseFloat(item.parentNode.parentNode.parentNode.querySelector("input[name=qty]").value)
+      item.parentNode.parentNode.parentNode.querySelector('.final-price').innerHTML = `${(newprice * quantity).toFixed(2)} $`
+      item.parentNode.parentNode.parentNode.querySelector('.custom-primary').innerHTML = `${newprice} $`
+    })
+  })
+
+  document.querySelectorAll(".qty-subtract").forEach((item)=>{
+    item.parentNode.parentNode.parentNode.parentNode.addEventListener("click",(event)=>{
+      let current = parseFloat(item.parentNode.parentNode.parentNode.parentNode.querySelector('.custom-primary').innerHTML)
+      let quantity = parseFloat(item.parentNode.parentNode.parentNode.parentNode.querySelector("input[name=qty]").value)
+      if(quantity > 0){
+          item.parentNode.parentNode.parentNode.parentNode.querySelector('.final-price').innerHTML = `${(current * quantity).toFixed(2)} $`
+      }
+    })
+  })
+
+  document.querySelectorAll('.modal').forEach((item)=>{
+    item.querySelector('.btn-custom').addEventListener('click',(event)=>{
+      let data = {}
+      data.i = item.querySelector('.my-data').getAttribute('data-i')
+      data.p = item.querySelector('.my-data').getAttribute('data-p')
+      data.n = item.querySelector('.my-data').getAttribute('data-n')
+      data.q = item.querySelector("input[name=qty]").value
+      data.s = item.querySelector(".active").getAttribute('data-s')
+      data.size = item.querySelector(".active").getAttribute('data-size')
+      data.price = parseFloat(item.querySelector('.custom-primary').innerHTML)
+      ADD(data)
+      item.querySelector(".btn-custom").innerHTML = 'Added'
+    })
+  })
+
+  document.querySelectorAll('.order-item').forEach((item)=>{
+    item.addEventListener('click',(event)=>{
+      event.preventDefault()
+      let num = item.getAttribute("data-p")
+      let neww = document.querySelector(`#customizeModal${num}`)
+      let data = {}
+      data.i = neww.querySelector('.my-data').getAttribute('data-i')
+      data.p = neww.querySelector('.my-data').getAttribute('data-p')
+      data.n = neww.querySelector('.my-data').getAttribute('data-n')
+      data.q = neww.querySelector("input[name=qty]").value
+      data.s = neww.querySelector(".active").getAttribute('data-s')
+      data.size = neww.querySelector(".active").getAttribute('data-size')
+      data.price = parseFloat(neww.querySelector('.custom-primary').innerHTML)
+      ADD(data)
+      item.innerHTML = 'Added <i class="fas fa-shopping-cart">'
+
+    })
+  })
+
+</script>
+
+{% endblock %}

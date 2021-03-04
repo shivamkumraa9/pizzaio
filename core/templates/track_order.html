@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+  <title>Track Your Order</title>
+{% endblock %}
+
+
+
+
+{% block content %}
+
+  <div class="subheader dark-overlay dark-overlay-2" style="background-image: url({% static 'img/subheader.jpg' %})">
+    <div class="container">
+      <div class="subheader-inner">
+        <h1>Track Order</h1>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'core:home' %}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Track Order</li>
+          </ol>
+        </nav>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="contact-wrapper">
+    <div class="">
+      <div class="section pt-5">
+        <div class="container">
+
+          <form class="my-form">
+            <div class="row">
+              <div class="col-lg-3">
+              </div>
+              <div class="form-group col-lg-5">
+                <input required type="text" placeholder="Enter Your ID" class="form-control id" name="fname" value="">
+              </div>
+              <div class="form-group col-lg-4">
+                <button type="submit" class="btn-custom primary" name="button">Track</button>
+              </div>
+            </div>
+          </form>
+
+          <div class="section-title-wrap mt-5 mb-5">
+            <h3 class="text-center msg"></h3>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+<script type="text/javascript">
+  document.querySelector(".my-form").addEventListener("submit",(event)=>{
+      event.preventDefault()
+      $.get(`/api/track-order/${document.querySelector(".id").value}/`, function(data, status){
+        document.querySelector('.msg').innerHTML = data.message
+      });
+  })
+</script>
+
+{% endblock %}

@@ -1,0 +1,210 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+  <title>Product Page</title>
+{% endblock %}
+
+{% block content %}
+
+  <!-- Subheader Start -->
+  <div class="subheader dark-overlay dark-overlay-2" style="background-image: url({% static 'img/subheader.jpg' %})">
+    <div class="container">
+      <div class="subheader-inner">
+        <h1>Menu Item</h1>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'core:home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'core:menu' %}">Menu</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Product Page</li>
+          </ol>
+        </nav>
+      </div>
+
+    </div>
+  </div>
+  <!-- Subheader End -->
+
+  <div class="section product-single">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-5">
+
+          <!-- Main Thumb -->
+          <div class="product-thumb">
+            <img src="{{ product.image }}" alt="pizza">
+          </div>
+          <!-- /Main Thumb -->
+
+        </div>
+        <div class="col-md-7">
+          <div class="product-content">
+            <span class="my-data" data-n="{{ product.name }}" data-p = "{{ product.pk }}" data-i = "{{ product.image }}"></span>
+
+            <!-- Product Title -->
+            <h2 class="title">{{ product.name }}</h2>
+            <!-- /Product Title -->
+
+            <div class="favorite">
+              <i class="far fa-heart"></i>
+            </div>
+
+
+            <!-- Price -->
+            <div class="price-wrapper">
+              <p class="product-price">{{ product.price }}$</p>
+            </div>
+            <!-- /Price -->
+
+            <!-- Product Short Description -->
+            <p>{{ product.description }}</p>
+            <!-- /Product Short Description -->
+
+            <!-- Variations -->
+            <div class="customize-variations">
+
+              <div class="customize-size-wrapper">
+                <h5>Size: </h5>
+                {% for i in sizes %}
+                  <div class="sizer customize-size {% if forloop.counter == 1 %}active{%endif%}" data-s="{{ i.pk }}" data-price = "{{ i.price }}" data-size = "{{ i.name }}">
+                    {{ i.name }}
+                  </div>                
+                {% endfor %}
+              </div>
+
+            </div>
+            <!-- /Variations -->
+
+            <!-- Add To Cart Form -->
+            <form class="atc-form" method="post">
+              <div class="form-group">
+                <label>Quantity</label>
+                <div class="qty">
+                  <span class="qty-subtract"><i class="fas fa-minus"></i></span>
+                  <input type="text" name="qty" value="1" disabled="true">
+                  <span class="qty-add"><i class="fas fa-plus"></i></span>
+                </div>
+              </div>
+              <button type="submit" name="button" class="btn-custom secondary fff"> Add To Cart <i class="fas fa-shopping-cart"></i> </button>
+            </form>
+            <!-- /Add To Cart Form -->
+
+            <!-- Product Meta -->
+            <ul class="product-meta">
+              <li>
+                <span>Categories: </span>
+                <div class="product-meta-item">
+                  <a href="#">Pizza</a>
+                </div>
+              </li>
+              <li>
+                <span>Tags: </span>
+                <div class="product-meta-item">
+                  <a href="#">Pizza</a>,
+                  <a href="#">Cheese</a>,
+                  <a href="#">Cheesy Crusts</a>
+                </div>
+              </li>
+              <li>
+                <span>SKU: </span>
+                <div class="product-meta-item">
+                  <span>N/A</span>
+                </div>
+              </li>
+            </ul>
+            <!-- /Product Meta -->
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section pt-0">
+    <div class="container">
+      <!-- Additional Information Start -->
+      <div class="product-additional-info">
+        <div class="tab-content" id="bordered-tabContent">
+          <div class="tab-pane fade show active" id="tab-product-desc" role="tabpanel" aria-labelledby="tab-product-desc-tab">
+            <h4>Description</h4>
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute,
+            non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a
+            bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica
+          </div>
+        </div>
+      </div>
+      <!-- Additional Information End -->
+    </div>
+  </div>
+
+  <!-- Related Start -->
+  <div class="section section-padding related-products pt-0">
+    <div class="container">
+      <h3>You might also like</h3>
+
+      <div class="row menu-v2">
+        <!-- Product Start -->
+        {% for pizza in pizzas %}
+        <div class="col-lg-4 col-md-6">
+          <div class="product">
+            <div class="favorite">
+              <i class="far fa-heart"></i>
+            </div>
+            <a class="product-thumb" href="{% url 'core:product' pizza.pk %}"> <img src="{{ pizza.image }}" alt="menu item"> </a>
+            <div class="product-body">
+              <div class="product-desc">
+                <h4> <a href="{% url 'core:product' pizza.pk %}">{{ pizza.name }}</a> </h4>
+                <p>{{ pizza.description }}</p>
+              </div>
+              <div class="product-controls">
+                <p class="product-price">{{ pizza.price }}$</p>
+                <a href="{% url 'core:product' pizza.pk %}" class="order-item btn-custom btn-sm shadow-none">Add To Cart <i class="fas fa-shopping-cart"></i> </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        <!-- Product End -->
+
+      </div>
+
+    </div>
+  </div>
+  <!-- Related End -->
+
+{% endblock %}
+
+
+{% block javascript %}
+<script type="text/javascript">
+  document.querySelectorAll(".sizer").forEach((item)=>{
+    item.addEventListener("click",(event)=>{
+      item.parentNode.parentNode.querySelector('.active').classList.remove("active")
+      item.classList.add("active")
+      let newprice = parseFloat(item.getAttribute("data-price"))
+      document.querySelector('.product-price').innerHTML = `${newprice} $`
+    })
+  })
+
+  document.querySelector('.fff').addEventListener('click',(event)=>{
+      event.preventDefault()
+      let item = document.querySelector('.my-data')
+      let num = item.getAttribute("data-p")
+      let data = {}
+      data.i = item.getAttribute('data-i')
+      data.p = item.getAttribute('data-p')
+      data.n = item.getAttribute('data-n')
+      data.q = document.querySelector("input[name=qty]").value
+      data.s = document.querySelector("div.sizer.customize-size.active").getAttribute('data-s')
+      data.size = document.querySelector("div.sizer.customize-size.active").getAttribute('data-size')
+      data.price = parseFloat(document.querySelector('.product-price').innerHTML)
+      ADD(data)
+      event.target.innerHTML = 'Added <i class="fas fa-shopping-cart">'
+
+  })
+
+</script>
+
+{% endblock %}

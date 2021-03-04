@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+  <title>Checkout</title>
+{% endblock %}
+
+{% block content %}
+
+  <!-- Subheader Start -->
+  <div class="subheader dark-overlay dark-overlay-2" style="background-image: url({% static 'img/subheader.jpg' %})">
+    <div class="container">
+      <div class="subheader-inner">
+        <h1>Checkout</h1>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'core:home' %}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+          </ol>
+        </nav>
+      </div>
+
+    </div>
+  </div>
+  <!-- Subheader End -->
+
+  <!-- Checkout Start -->
+  <section class="section">
+    <div class="container page-checkoutcartt">
+
+      <form method="post" class="checkout-form">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-xl-7">
+
+            <!-- Buyer Info -->
+            <h4>Billing Details</h4>
+            <div class="row">
+              <div class="form-group col-xl-6">
+                <label>Full Name <span class="text-danger">*</span></label>
+                <input type="text" placeholder="Full Name" name="name" class="form-control" required="">
+              </div>
+              <div class="form-group col-xl-6">
+                <label>Email Address <span class="text-danger">*</span></label>
+                <input type="email" placeholder="Email Address" name="email" class="form-control" required="">
+              </div>
+              <div class="form-group col-xl-6">
+                <label>Phone Number <span class="text-danger">*</span></label>
+                <input type="text" placeholder="Phone Number" name="phone" class="form-control" required="">
+              </div>
+              <div class="form-group col-xl-6">
+                <label>Country Name</label>
+                <input type="text" placeholder="Country Name" name="country" class="form-control" required="">
+              </div>
+              <div class="form-group col-xl-6">
+                <label>City Name</label>
+                <input type="text" placeholder="Country Name" name="city" class="form-control" required="">
+              </div>
+              <div class="form-group col-xl-6">
+                <label>Street Address 1 <span class="text-danger">*</span></label>
+                <input type="text" placeholder="Street Address One" name="address_1" class="form-control" required="">
+              </div>
+              <div class="form-group col-xl-6">
+                <label>Street Address 2</label>
+                <input type="text" placeholder="Street Address Two (Optional)" name="address_2" class="form-control">
+              </div>
+              <input type="hidden" name="data" value=''>
+
+              <button type="submit" class="btn-custom primary btn-block">Place Order</button>
+            </div>
+
+            <!-- /Buyer Info -->
+
+          </div>
+          <div class="col-xl-5 checkout-billing">
+            <!-- Order Details Start -->
+            <table class="ct-responsive-table">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Qunantity</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody class="table-body">
+                <tr>
+                  <td data-title="Product">
+                    <div class="cart-product-wrapper">
+                      <div class="cart-product-body">
+                        <h6> <a href="#">Pepperoni</a> </h6>
+                        <p>21 Inch</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td data-title="Quantity">x1</td>
+                  <td data-title="Total"> <strong>23.99$</strong> </td>
+                </tr>
+
+                <tr class="total">
+                  <td>
+                    <h6 class="mb-0">Grand Total</h6>
+                  </td>
+                  <td></td>
+                  <td> <strong>56.99$</strong> </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </section>
+  <!-- Checkout End -->
+
+{% endblock %}
+
+
+{% block javascript %}
+<script type="text/javascript">
+
+  document.querySelector('.checkout-form').addEventListener("submit",(event)=>{
+    document.querySelector("input[name=data]").value = localStorage.getItem("data")
+    EMPTY()
+  })
+
+</script>
+{% endblock %}

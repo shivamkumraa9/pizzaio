@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+  <title>Cart Page</title>
+{% endblock %}
+
+{% block content %}
+
+  <!-- Subheader Start -->
+  <div class="subheader dark-overlay dark-overlay-2" style="background-image: url({% static 'img/subheader.jpg' %})">
+    <div class="container">
+      <div class="subheader-inner">
+        <h1>Cart</h1>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'core:home' %}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Cart</li>
+          </ol>
+        </nav>
+      </div>
+
+    </div>
+  </div>
+  <!-- Subheader End -->
+
+  <!--Cart Start -->
+  <section class="section">
+    <div class="container page-cartt">
+
+      <!-- Cart Table Start -->
+      <table class="ct-responsive-table">
+        <thead>
+          <tr>
+            <th class="remove-item"></th>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Qunantity</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody class="cart-table">
+
+          <tr>
+            <td class="remove">
+              <button type="button" class="close-btn close-danger remove-from-cart">
+                <span></span>
+                <span></span>
+              </button>
+            </td>
+            <td data-title="Product">
+              <div class="cart-product-wrapper">
+                <img src="{% static 'img/3.png' %}" alt="prod1">
+                <div class="cart-product-body">
+                  <h6> <a href="#">Four Cheese</a> </h6>
+                  <p>21 Inch</p>
+                  <p>Extra Cheese</p>
+                </div>
+              </div>
+            </td>
+            <td data-title="Price"> <strong>13.99$</strong> </td>
+            <td class="quantity" data-title="Quantity">
+              <input type="number" class="qty form-control" value="1">
+            </td>
+            <td data-title="Total"> <strong>13.99$</strong> </td>
+          </tr>
+
+        </tbody>
+      </table>
+      <!-- Cart Table End -->
+
+      <!-- Cart form Start -->
+      <div class="row ct-cart-form">
+        <div class="offset-lg-6 col-lg-6">
+          <h4>Cart Total</h4>
+          <table>
+            <tbody>
+              <tr>
+                <th>Subtotal</th>
+                <td class="saba">90.99$</td>
+              </tr>
+              <tr>
+                <th>Tax</th>
+                <td> 0$</td>
+              </tr>
+              <tr>
+                <th>Total</th>
+                <td> <b class="daba">99.99$</b> </td>
+              </tr>
+            </tbody>
+          </table>
+          <a href="{% url 'core:checkout' %}" class="btn-custom primary btn-block">Proceeed to Checkout</a>
+        </div>
+      </div>
+      <!-- Cart form End -->
+
+    </div>
+  </section>
+  <!-- Cart End -->
+
+{% endblock %}
+
+
+{% block javascript %}
+
+<script type="text/javascript">
+
+
+</script>
+
+{% endblock %}

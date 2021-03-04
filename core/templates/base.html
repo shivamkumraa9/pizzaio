@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block head %}{% endblock %}
+    <!-- Vendor Stylesheets -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/slick.css' %}">
+    <link rel="stylesheet" href="{% static 'css/slick-theme.css' %}">
+    <!-- Icon Fonts -->
+    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+    <!-- Slices Style sheet -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon.ico' %}">
+</head>
+
+<body>
+
+  <!-- Cart Sidebar Start -->
+  <div class="cart-sidebar-wrapper">
+    <aside class="cart-sidebar">
+      <div class="cart-sidebar-header">
+        <h3>Your Cart</h3>
+        <div class="close-btn cart-trigger close-dark">
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <div class="cart-sidebar-body">
+        <div class="slimScrollDiv" style="position: relative; overflow: auto; width: auto; height: 407.2px;">
+          <div class="cart-sidebar-scroll pr-5" style="overflow: auto; width: auto; height: 407.2px;">
+
+
+        </div>
+      </div>
+      </div>
+      <div class="cart-sidebar-footer">
+        <h4>Total: <span class="side-cart-total">299.99$</span> </h4>
+        <a href="{% url 'core:checkout' %}" class="btn-custom">Checkout</a>
+      </div>
+    </aside>
+    <div class="cart-sidebar-overlay cart-trigger">
+    </div>
+  </div>
+  <!-- Cart Sidebar End -->
+
+  <!-- Search Form Start-->
+  <div class="search-form-wrapper">
+    <div class="search-trigger close-btn">
+      <span></span>
+      <span></span>
+    </div>
+    <form class="search-form" method="post">
+      <input type="text" placeholder="Search..." value="">
+      <button type="submit" class="search-btn">
+        <i class="flaticon-magnifying-glass"></i>
+      </button>
+    </form>
+  </div>
+  <!-- Search Form End-->
+
+  <!-- Aside (Mobile Navigation) -->
+  <aside class="main-aside">
+    <a class="navbar-brand" href="{% url 'core:home' %}"> <img src="{% static 'img/logo.png' %}" alt="logo"> </a>
+
+    <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 604.6px;"><div class="aside-scroll" style="overflow: hidden; width: auto; height: 604.6px;">
+        <ul>
+          <li class="menu-item">
+            <a href="{% url 'core:home' %}">Home</a>
+          </li>
+          <li class="menu-item">
+            <a href="{% url 'core:menu' %}">Menu</a>
+          </li>
+          <li class="menu-item">
+            <a href="{% url 'core:cart' %}">Your Cart</a>
+          </li>
+          <li class="menu-item">
+            <a href="{% url 'core:track_order' %}">Track Order</a>
+          </li>
+          <li class="menu-item">
+            <a href="{% url 'core:about' %}">About</a>
+          </li>
+        </ul>
+
+    </div><div class="slimScrollBar" style="background: rgb(220, 220, 220); width: 5px; position: absolute; top: -56.2px; opacity: 1; display: block; border-radius: 7px; z-index: 99; right: 1px; height: 604.2px;"></div><div class="slimScrollRail" style="width: 5px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div></div>
+
+  </aside>
+  <div class="aside-overlay aside-trigger"></div>
+
+  <!-- Header Start -->
+  <header class="main-header header-1 header-absolute {% block navtype %}header-light{% endblock %}">
+
+    <div class="top-header">
+      <div class="container">
+        <div class="top-header-inner">
+
+          <div class="top-header-contacts">
+            <ul class="top-header-nav">
+              <li> <a class="p-0" href="tel:+123456789"><i class="fas fa-phone mr-2"></i> +123 456 789</a> </li>
+            </ul>
+          </div>
+
+          <ul class="top-header-nav header-cta">
+            <li> <a href="{% url 'core:menu' %}">Order Online</a> </li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <nav class="navbar">
+        <!-- Logo -->
+        <a class="navbar-brand" href="{% url 'core:home' %}"> <img src="{% block logo %}{% static 'img/logo-light.png' %}{% endblock %}" alt="logo"> </a>
+        <!-- Menu -->
+        <ul class="navbar-nav">
+          <li class="menu-item">
+            <a href="{% url 'core:home' %}">Home</a>
+          </li>
+          <li class="menu-item">
+            <a href="{% url 'core:menu' %}">Menu</a>
+          </li>
+          <li class="menu-item">
+            <a href="{% url 'core:cart' %}">Your Cart</a>
+          </li>
+          <li class="menu-item">
+            <a href="{% url 'core:track_order' %}">Track Order</a>
+          </li>
+          <li class="menu-item">
+            <a href="{% url 'core:about' %}">About</a>
+          </li>
+        </ul>
+
+        <div class="header-controls">
+          <ul class="header-controls-inner">
+            <li class="cart-dropdown-wrapper cart-trigger">
+              <span class="cart-item-count">4</span>
+              <i class="flaticon-shopping-bag"></i>
+            </li>
+            <li class="search-dropdown-wrapper search-trigger">
+              <i class="flaticon-search"></i>
+            </li>
+          </ul>
+          <!-- Toggler -->
+          <div class="aside-toggler aside-trigger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+
+      </nav>
+    </div>
+
+  </header>
+  <!-- Header End -->
+
+{% block content %}
+{% endblock %}
+
+
+  <!-- Footer Start -->
+  <footer class="ct-footer footer-dark">
+    <!-- Top Footer -->
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-logo">
+          <img src="{% static 'img/logo-light.png' %}" alt="logo">
+        </div>
+        <div class="footer-buttons">
+          <a href="#"> <img src="{% static 'img/android.png' %}" alt="download it on the app store"></a>
+          <a href="#"> <img src="{% static 'img/ios.png' %}" alt="download it on the app store"></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Middle Footer -->
+    <div class="footer-middle">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 footer-widget">
+            <h5 class="widget-title">Information</h5>
+            <ul>
+              <li> <a href="{% url 'core:home' %}">Home</a> </li>
+              <li> <a href="{% url 'core:contact' %}">Contact Us</a> </li>
+              <li> <a href="{% url 'core:about' %}">About Us</a> </li>
+              <li> <a href="{% url 'core:menu' %}">Menu</a> </li>
+            </ul>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 footer-widget">
+            <h5 class="widget-title">Legal</h5>
+            <ul>
+              <li> <a href="#">Privacy Policy</a> </li>
+              <li> <a href="#">Refund Policy</a> </li>
+              <li> <a href="#">Cookie Policy</a> </li>
+              <li> <a href="#">Terms &amp; Conditions</a> </li>
+            </ul>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 footer-widget">
+            <h5 class="widget-title">Others</h5>
+            <ul>
+              <li> <a href="{% url 'core:checkout' %}">Checkout</a> </li>
+              <li> <a href="{% url 'core:cart' %}">Cart</a> </li>
+              <li> <a href="{% url 'core:track_order' %}">Track Order</a> </li>
+              <li> <a href="{% url 'core:contact' %}">Contact Us</a> </li>
+            </ul>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 footer-widget">
+            <h5 class="widget-title">Social Media</h5>
+            <ul class="social-media">
+              <li> <a href="#" class="facebook"> <i class="fab fa-facebook-f"></i> </a> </li>
+              <li> <a href="#" class="pinterest"> <i class="fab fa-pinterest-p"></i> </a> </li>
+              <li> <a href="#" class="google"> <i class="fab fa-google"></i> </a> </li>
+              <li> <a href="#" class="twitter"> <i class="fab fa-twitter"></i> </a> </li>
+            </ul>
+            <div class="footer-offer">
+              <p>Order now and get exclusive offers and coupon codes</p>
+              <a href="{% url 'core:menu' %}" class="btn-custom btn-sm shadow-none">Order Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <div class="container">
+        <ul style="padding: 0px;"></ul>
+        <div class="footer-copyright">
+          <p> Copyright © 2020 <a href="#">Slices Restauraunt</a> All Rights Reserved. </p>
+          <a href="#" class="back-to-top">Back to top <i class="fas fa-chevron-up"></i> </a>
+        </div>
+      </div>
+    </div>
+
+  </footer>
+  <!-- Footer End -->
+
+  <!-- Vendor Scripts -->
+  <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  <script src="{% static 'js/waypoint.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+  <script src="{% static 'js/jquery.slimScroll.min.js' %}"></script>
+  <script src="{% static 'js/imagesloaded.min.js' %}"></script>
+  <script src="{% static 'js/jquery.steps.min.js' %}"></script>
+  <script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+  <script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'js/slick.min.js' %}"></script>
+
+  <!-- Slices Scripts -->
+  <script src="{% static 'js/main.js' %}"></script>
+
+<script type="text/javascript">
+
+  let DATA;
+  try{
+    if(localStorage.getItem("data")){
+      DATA =  JSON.parse(localStorage.getItem("data"))
+    }else{
+      localStorage.setItem("data",'{"data":[]}')
+      DATA = {data:[]}
+    }
+  }
+  catch(err){
+      localStorage.setItem("data",'{"data":[]}')
+      DATA = {data:[]}
+  }
+
+let refresh_cart = ()=>{
+    let cart = document.querySelector('.cart-sidebar-scroll')
+    cart.innerHTML = ''
+    DATA.data.forEach((item)=>{
+      let neww = document.createElement("div")
+      neww.classList.add("cart-sidebar-item")
+      neww.innerHTML = `
+<div class="media">
+  <a href="#"><img src="${item.i}" alt="product"></a>
+  <div class="media-body">
+    <h5> <a href="#" title="Swiss Mushroom">${item.n}</a> </h5>
+    <span>${item.q}x ${item.price}$</span>
+  </div>
+</div>
+<div class="cart-sidebar-item-meta">
+  <span>${item.size}</span>
+</div>
+<div class="cart-sidebar-price">
+  ${(item.q*item.price).toFixed(2)}$
+</div>
+<div class="close-btn" onclick="DELETE(${item.p})">
+  <span></span>
+  <span></span>
+</div>
+      `
+      cart.appendChild(neww)
+    })
+
+    document.querySelector(".side-cart-total")
+    document.querySelector('.cart-item-count').innerHTML = DATA.data.length;
+    CALC_TOTAL()
+    document.querySelector(".side-cart-total").innerHTML = DATA.total
+  }
+
+  let refresh_cart2 = ()=>{
+
+  let parent = document.querySelector('.cart-table')
+  parent.innerHTML = ''
+  if(DATA.data.length === 0){
+    document.querySelector('.page-cartt').innerHTML = '<h3 class="mt-3 text-center">Oops! Your Cart Is Empty</h3>'
+  }else{
+  }
+  DATA.data.forEach((item)=>{
+    let neww = document.createElement("tr")
+    neww.innerHTML = `
+            <td class="remove">
+              <button type="button" onclick="DELETE(${item.p})" class="close-btn close-danger remove-from-cart">
+                <span></span>
+                <span></span>
+              </button>
+            </td>
+            <td data-title="Product">
+              <div class="cart-product-wrapper">
+                <img src="${item.i}" alt="prod1">
+                <div class="cart-product-body">
+                  <h6> <a href="#">${item.n}</a> </h6>
+                  <p>${item.size}</p>
+                </div>
+              </div>
+            </td>
+            <td data-title="Price"> <strong>${item.price}$</strong> </td>
+            <td class="quantity" data-title="Quantity">
+            <div class="qty">
+              <span class="qty-subtract" onclick="ddecrement(${item.p},this.parentNode)"><i class="fas fa-minus"></i></span>
+              <input type="number" disabled="true" value="${item.q}">
+              <span class="qty-add" onclick="iincrement(${item.p},this.parentNode)"><i class="fas fa-plus"></i></span>
+            </div>
+            </td>
+            <td data-title="Total"> <strong>${(item.q*item.price).toFixed(2)}$</strong> </td>
+    `
+    parent.appendChild(neww)
+  })
+
+  document.querySelector(".saba").innerHTML = `${DATA.total}$`
+  document.querySelector(".daba").innerHTML = `${DATA.total}$`
+  }
+
+  let refresh_cart_3 = ()=>{
+    let parent = document.querySelector('.table-body')
+    parent.innerHTML = ''
+    DATA.data.forEach((item)=>{
+      let neww = document.createElement('tr')
+      neww.innerHTML = `
+                  <td data-title="Product">
+                    <div class="cart-product-wrapper">
+                      <div class="cart-product-body">
+                        <h6> <a href="#">${item.n}</a> </h6>
+                        <p>Size ${item.size}</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td data-title="Quantity">x${item.q}</td>
+                  <td data-title="Total"> <strong>${(item.q*item.price).toFixed(2)}$</strong> </td>
+      `
+      parent.appendChild(neww)
+    })
+    let tail = document.createElement('tr')
+    tail.classList.add('total')
+    tail.innerHTML = `
+                  <td>
+                    <h6 class="mb-0">Grand Total</h6>
+                  </td>
+                  <td></td>
+                  <td> <strong>${DATA.total}$</strong> </td>
+    `
+    parent.appendChild(tail)
+
+  }
+
+
+let FULL_REFRESH = ()=>{
+  refresh_cart()
+  try{
+    refresh_cart2()
+  }catch(err){}
+
+try{
+  if(DATA.data.length === 0){
+    document.querySelector('.page-checkoutcartt').innerHTML = '<h3 class="mt-3 text-center">Oops! Your Cart Is Empty</h3>'
+  }
+}catch(err){}
+
+  try{
+    refresh_cart_3()
+  }catch(err){}
+
+  localStorage.setItem("data",JSON.stringify(DATA))
+}
+
+  let DELETE = (pk)=>{
+    var index = DATA.data.findIndex(function(o){return o.p == pk;})
+    if (index !== -1){
+      DATA.data.splice(index, 1)
+      FULL_REFRESH()
+    }
+  }
+
+  let UPDATE = (pk,ele)=>{
+    var index = DATA.data.findIndex(function(o){return o.p == pk;})
+    if (index !== -1){
+      DATA.data[index].q = ele.value
+      FULL_REFRESH()
+    }
+  }
+
+  let ADD = (data)=>{
+    DELETE(data.p)
+    DATA.data.push(data)
+    FULL_REFRESH()
+  }
+
+  let EMPTY = () =>{
+    localStorage.setItem("data",'{"data":[]}')
+  }
+
+  let CALC_TOTAL = ()=>{
+    total = 0
+    DATA.data.forEach((item)=>{
+      total += item.q * item.price
+    })
+    DATA.total = total.toFixed(2)
+  }
+
+  let iincrement = (pk,ele)=>{
+    ele.querySelector('.qty input').value = parseInt(ele.querySelector('.qty input').value) + 1
+    UPDATE(pk,ele.querySelector('.qty input'))
+  }
+
+  let ddecrement = (pk,ele) =>{
+  if(parseInt(ele.querySelector('.qty input').value) > 1){
+    ele.querySelector('.qty input').value = parseInt(ele.querySelector('.qty input').value) - 1;
+    UPDATE(pk,ele.querySelector('.qty input'))
+  }
+  }
+
+FULL_REFRESH()
+
+</script>
+
+{% block javascript %}
+{% endblock %}
+
+</body></html>
+
+              
