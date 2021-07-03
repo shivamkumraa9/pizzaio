@@ -9,10 +9,10 @@ import json
 
 
 def home(request):
-	return render(request,"home.html")
+	return render(request, "home.html")
 
 def menu(request):
-	return render(request,"menu.html",{'products':Product.objects.all()})
+	return render(request,"menu.html", {'products': Product.objects.all()})
 
 def checkout(request):
 	if request.method == "POST":
@@ -31,20 +31,20 @@ def checkout(request):
 			return redirect("core:thank_you",number = o.order_id)
 	return render(request,"checkout.html")
 
-def product(request,pk):
-	product = get_object_or_404(Product,pk = pk)
-	pizzas = Product.objects.filter(catagory = 'Pizzas')[:3]
-	sizes = Size.objects.filter(product = product)
-	return render(request,"product.html",{'product':product,'pizzas':pizzas,'sizes':sizes})
+def product(request, pk):
+	product = get_object_or_404(Product, pk=pk)
+	pizzas = Product.objects.filter(catagory='Pizzas')[:3]
+	sizes = Size.objects.filter(product=product)
+	return render(request,"product.html",{'product': product,'pizzas': pizzas,'sizes': sizes})
 
-def thank_you(request,number):
-	return render(request,"thankyou.html",{'number':number})
+def thank_you(request, number):
+	return render(request, "thankyou.html", {'number': number})
 
 def track_order(request):
-	return render(request,"track_order.html")
+	return render(request, "track_order.html")
 
-def track_order_num(request,number):
-	order = Order.objects.filter(order_id = number)
+def track_order_num(request, number):
+	order = Order.objects.filter(order_id=number)
 	if order:
 		return JsonResponse({"message":f"Hello {order[0].name}! Your Order Status is : {order[0].state}"})
 	return JsonResponse({"message":f"Order Not Found!"})
